@@ -1,4 +1,4 @@
-# MQNN
+# MQNN saving subcribed data
 1. initialize_DB_Tables.py  
 Execute this file to create “IoT.db” sqlite database file with Tables to store data.
 2. mqtt_Listen_Sensor_Data.py 
