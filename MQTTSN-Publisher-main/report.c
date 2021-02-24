@@ -16,7 +16,7 @@
 
 #include "mqttsn_publisher.h"
 #include "report.h"
-
+#include "pms5003.h"
 #define ENABLE_DEBUG    (0)
 #include "debug.h"
 
@@ -24,7 +24,7 @@
 #include "pstr_print.h"
 #endif
 
-static int seq_nr_value = 0;
+//static int seq_nr_value = 0;
 
 #if defined(MODULE_GNRC_RPL)
 int rpl_report(uint8_t *buf, size_t len, uint8_t *finished);
@@ -36,18 +36,20 @@ int boot_report(uint8_t *buf, size_t len, uint8_t *finished);
 static size_t preamble(uint8_t *buf, size_t len) {
      char *s = (char *) buf;
      size_t l = len;
-     size_t n;
+     //size_t n;
      int nread = 0;
      
      RECORD_START(s + nread, l - nread);
+     /*
      PUTFMT("{\"bn\":\"urn:dev:mac:");
      n = get_nodeid(RECORD_STR(), RECORD_LEN());
      RECORD_ADD(n);
      PUTFMT(";\"");
      PUTFMT(",\"bu\":\"count\",\"bt\":%lu}", (uint32_t) (xtimer_now_usec()/1000000));
      PUTFMT(",{\"n\":\"seq_no\",\"u\":\"count\",\"v\":%d}", 9000+seq_nr_value++);
+     */
+     PUTFMT("{\"DB0_3\":%-u,\"DB0_5\":%-u,\"DB1\":%-u,\"DB2_5\":%-u,\"DB5\":%-u,\"DB10\":%-u }",pms5003_db0_3(),pms5003_db0_5(),pms5003_db1(),pms5003_db2_5(),pms5003_db5(),pms5003_db10());
      RECORD_END(nread);
-
      return (nread);
 }
 
@@ -81,7 +83,7 @@ report_gen_t next_report_gen(void) {
      }
      return NULL;
 }
-
+/*
 static char *reportfunstr(report_gen_t fun) {
   if (fun == NULL)
     return "NUL";
@@ -96,10 +98,11 @@ static char *reportfunstr(report_gen_t fun) {
   else
     return("???");
 }
-
+*/
 /*
  * Reports -- build report by writing records to buffer 
  */
+/*
 static size_t reports(uint8_t *buf, size_t len) {
      char *s = (char *) buf;
      size_t l = len;
@@ -121,6 +124,7 @@ static size_t reports(uint8_t *buf, size_t len) {
      reportfun = NULL;
      return (nread);
 }
+*/
 
 size_t makereport(uint8_t *buffer, size_t len) {
      char *s = (char *) buffer;
@@ -132,8 +136,10 @@ size_t makereport(uint8_t *buffer, size_t len) {
      PUTFMT("[");
      n = preamble((uint8_t *) RECORD_STR(), RECORD_LEN()-1); /* Save one for last bracket */
      RECORD_ADD(n);
-     n = reports((uint8_t *) RECORD_STR(), RECORD_LEN()-1); /* Save one for last bracket */
+     /*
+     n = reports((uint8_t *) RECORD_STR(), RECORD_LEN()-1);  Save one for last bracket 
      RECORD_ADD(n);
+     */
      PUTFMT("]");
      RECORD_END(nread);
 

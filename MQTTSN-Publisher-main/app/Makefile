@@ -73,7 +73,14 @@ endif
 USEMODULE += xtimer
 USEMODULE += at24mac
 
+USEMODULE += i2c_scan
+FEATURES_REQUIRED = periph_i2c
+FEATURES_OPTIONAL += periph_rtt
+FEATURES_REQUIRED += periph_uart
+FEATURES_OPTIONAL += periph_lpuart  # STM32 L0 and L4 provides lpuart support
 
+
+CFLAGS += -DI2C_NUMOF=1U -DI2C_BUS_SPEED=I2C_SPEED_NORMAL
 CFLAGS += -DDEBUG_ASSERT_VERBOSE
 
 # Comment this out to disable code in RIOT that does safety checking
