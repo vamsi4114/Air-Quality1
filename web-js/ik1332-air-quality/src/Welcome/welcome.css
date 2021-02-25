@@ -1,0 +1,14 @@
+div{
+    display: inline-flex;
+    flex-direction: column;
+}
+#UseCases{
+    text-align: left;
+    display: inline-flex;
+    flex-direction: row;
+}
+.UseCase{
+    padding: 20px;
+    font-size: 12px;
+    width: 30%;
+}    
