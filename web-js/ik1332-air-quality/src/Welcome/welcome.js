@@ -1,16 +1,17 @@
 
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./welcome.css";
 
 class Welcome extends Component{
 	render() {
 		return (
-			<div>
+			<div id="Welcome">
 				<h1>Welcome to air quality group!</h1>
 				<h3>Three potential use cases</h3>
 				<div id="UseCases">
 					<div className="UseCase">
-						<p>Case 1 : Outdoor air quality detection for travelers</p>
+						<Link to="/case1"><button className="btn">Case 1 : Outdoor air quality detection for travelers</button></Link>
 						<ul>
 							<li>Connect air quality data to travel planners so that they can see if they should take a different route for their outdoor activities</li>
 							<li>Connect with open API to get the weather report together with air quality</li>
@@ -18,7 +19,7 @@ class Welcome extends Component{
 						</ul>
 					</div>
 					<div className="UseCase">
-						<p>Case 2 : Indoor air quality detection for smoke alarm system</p>
+						<Link to="/case2"><button className="btn">Case 2 : Indoor air quality detection for smoke alarm system</button></Link>
 						<ul>
 							<li>Use sensor nodes for smoke alarm</li>
 							<li>Sensor nodes publish the particle level using MQTT-SN to a gateway broker</li>
@@ -28,7 +29,7 @@ class Welcome extends Component{
 						</ul>
 					</div>
 					<div className="UseCase">
-						<p>Case 3 : Outdoor Air Quality - living nearby the industrial areas</p>
+						<Link to="/case3"><button className="btn">Case 3 : Outdoor Air Quality - living nearby the industrial areas</button></Link>
 						<ul>
 							<li>Sensors are set up in the place nearby industrial areas</li>
 							<li>The software uses the sensor data to identify the quality</li>
