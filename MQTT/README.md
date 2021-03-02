@@ -3,11 +3,11 @@
 Execute this file to receive MQTT Data transmitted by “mqtt_Publish_Dummy_Data.py” 
 and save the data into the cloud server Firebase using the function in "store_Sebsir_Data_to_DB.py"
 
-connect_mqtt(): used for connecting to the borker.
+```connect_mqtt()```: used for connecting to the borker.
 
-subscribe(client: mqtt_client):used for subscribing the data of PM sensors
+```subscribe(client: mqtt_client)```:used for subscribing the data of PM sensors
 
-sensor_Data_Handler(msg.payload): This function is saved in “mqtt_Listen_Sensor_Data.py” and it is used for saving data in to the Firebase.
+```sensor_Data_Handler(msg.payload)```: This function is saved in “mqtt_Listen_Sensor_Data.py” and it is used for saving data in to the Firebase.
 
 
 ## store_Sensor_Data_to_DB.py 
@@ -16,9 +16,11 @@ No need to execute this file. It will be invoked
 It uses the module from Firebase to connect with the cloud server
 
 ```firebase.FirebaseApplication('https://ik1332-air-quality-default-rtdb.europe-west.firebasedatabase.app/')```
+
 This function is used to connect to the cloud server
 
 ```firebase.post(Topic, data)```
+
 This function is used to post data into specific topic of the database
 
 The data fromat in out air quality project is Json format and is shown like this
