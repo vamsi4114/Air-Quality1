@@ -1,5 +1,5 @@
 # MQNN saving subcribed data
-1. mqtt_Listen_Sensor_Data.py 
+## mqtt_Listen_Sensor_Data.py 
 Execute this file to receive MQTT Data transmitted by “mqtt_Publish_Dummy_Data.py” 
 and save the data into the cloud server Firebase using the function in "store_Sebsir_Data_to_DB.py"
 
@@ -10,7 +10,7 @@ subscribe(client: mqtt_client):used for subscribing the data of PM sensors
 sensor_Data_Handler(msg.payload): This function is saved in “mqtt_Listen_Sensor_Data.py” and it is used for saving data in to the Firebase.
 
 
-2. store_Sensor_Data_to_DB.py 
+## store_Sensor_Data_to_DB.py 
 No need to execute this file. It will be invoked 
 
 It uses the module from Firebase to connect with the cloud server
