@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Use case2</title>
+</head>
+<body>
+ 
+    <h1 style="text-align:center;" >Indoor Air Quality Detection For Smoke Alarm System </h1>
+ 
+<button class="accordion">About</button>
+<div class="panel">
+   <p><b>Welcome to air quality group!</b>
+   <br>
+   This is case2 : Indoor air quality detection for smoke alarm system.
+   <br>
+   Following is our contributors: <br>
+   Vangara Vamsi Krishna: vkva@kth.se <br>
+   Muzi Cheng: muzi@kth.se <br>
+   Saga Harnesk: sagah@kth.se <br>
+   Fengyuan Zhou: fzhou@kth.se</p>
+</div>
+<style>
+button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}</style>
+<button class="accordion">Instruction</button>
+<div class="panel">
+    <p>
+    <ul style="list-style-type:disc"></ul>
+    <li>Use sensor nodes for smoke alarm</li>
+    <li>Sensor nodes publish the particle level using MQTT-SN to a gateway broker</li>   
+    <li>Used in public places  like cybercafe and restaurants </li>
+    <li>Set threshold for PM2.5 or other particle level</li>
+    <li>Operators of those public places get the data from our web page</li>
+    </ul> </p>
+</div>
+
+<button class="accordion">Particle Concentration</button>
+<div class="panel">
+    <p>This is the particle level in your restaurant!</p>
+     <table border = 1>
+    <tr>
+        <th> Sec </th>
+        <th> PM0_3</th>
+        <th> PM0_5</th>
+        <th> PM1</th>
+        <th> PM2_5</th>
+        <th> PM5</th>
+        <th> PM10</th>
+    </tr>
+     {% for i in range(1,6) %}
+    <tr>
+        <th> {{ rows[-i]['Sec'] }} </th>
+        <th> {{ rows[-i]['PM0_3'] }} </th>
+        <th> {{ rows[-i]['PM0_5'] }} </th>
+        <th> {{ rows[-i]['PM1'] }} </th>
+        <th> {{ rows[-i]['PM2_5'] }} </th>
+        <th> {{ rows[-i]['PM5'] }} </th>
+        <th> {{ rows[-i]['PM10'] }}</th>
+    </tr>
+ {% endfor %}
+</table>
+</div>
+  
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  }
+}
+</script>
+<!--
+<ul style="list-style-type:disc"></ul>
+<li>Use sensor nodes for smoke alarm</li>
+<li>Sensor nodes publish the particle level using MQTT-SN to a gateway broker</li>   
+<li>Used in public places  like cybercafe and restaurants </li>
+<li>Set threshold for PM2.5 or other particle level</li>
+<li>Operators of those public places get the data from our web page</li>
+</ul>
+-->
+<script>
+    var DB03level,DB05level,DB10level;
+    var threshold03,threshold05,threshold10;
+    threshold03 = 300;
+    threshold05 = 400;
+    threshold10 = 500;
+
+    if ((DB03level > threshold03)&&(DB05level>threshold05))
+    {
+        alert("Please check the smoke from your restaurant！");
+    }
+</script>
+
+
+
+<!-- 这是一个注释 -->
+
+
+</body>
+</html>
