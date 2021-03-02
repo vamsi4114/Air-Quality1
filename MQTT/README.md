@@ -23,8 +23,10 @@ This function is used to post data into specific topic of the database
 
 The data fromat in out air quality project is Json format and is shown like this
 
+'''
 air_quality_data = {'Sec': Sec, 'PM0_3': PM0_3, 'PM0_5': PM0_5, 'PM1': PM1, 'PM2_5': PM2_5
         , 'PM5': PM5, 'PM10': PM10}
-        
+'''    
+
 Each episode this kind of data will be sent to broker and posted to the could server
 
