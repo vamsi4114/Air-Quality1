@@ -28,7 +28,7 @@ def subscribe(client: mqtt_client):
         print("MQTT Data Received...")
         print("MQTT Topic: " + msg.topic)
         print("Data: " + str(msg.payload))
-        sensor_Data_Handler(msg.topic, msg.payload)
+        sensor_Data_Handler(msg.payload)
 
     client.subscribe(topic)
     client.on_message = on_message
