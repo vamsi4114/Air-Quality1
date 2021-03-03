@@ -60,6 +60,28 @@ div.panel {
 <button class="accordion">Particle Concentration</button>
 <div class="panel">
     <p>This is the particle level in your restaurant!</p>
+     <table border = 1>
+    <tr>
+        <th> Sec </th>
+        <th> PM0_3</th>
+        <th> PM0_5</th>
+        <th> PM1</th>
+        <th> PM2_5</th>
+        <th> PM5</th>
+        <th> PM10</th>
+    </tr>
+     {% for i in range(1,6) %}
+    <tr>
+        <th> {{ rows[-i]['Sec'] }} </th>
+        <th> {{ rows[-i]['PM0_3'] }} </th>
+        <th> {{ rows[-i]['PM0_5'] }} </th>
+        <th> {{ rows[-i]['PM1'] }} </th>
+        <th> {{ rows[-i]['PM2_5'] }} </th>
+        <th> {{ rows[-i]['PM5'] }} </th>
+        <th> {{ rows[-i]['PM10'] }}</th>
+    </tr>
+ {% endfor %}
+</table>
 </div>
   
 
@@ -102,14 +124,8 @@ div.panel {
 </script>
 
 
-<!--
-<audio controls="controls" autoplay="autoplay">
-    <source src="song.ogg" type="audio/ogg" />
-    <source src="song.mp3" type="audio/mpeg" />
-  Your browser does not support the audio element.
-  </audio>
 
-  -->
+<!-- 这是一个注释 -->
 
 
 </body>
