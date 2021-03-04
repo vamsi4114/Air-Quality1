@@ -20,20 +20,9 @@
     <html>
     <head> 
     <meta charset="utf-8"> 
-    <title>菜鸟教程(runoob.com)</title> 
+    <title>qir quality</title> 
     </head>
     <body>
-    
-    <p id="demo"></p>
-    <script>
-    var r=Math.random();
-    var x=document.getElementById("demo")
-    if (r>0.5){
-        x.innerHTML="<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Green_Light_Icon.svg/1200px-Green_Light_Icon.svg.png\" width=\"300px\" height=\"300px\" >";}
-    else{
-        x.innerHTML="<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Red_Light_Icon.svg/1024px-Red_Light_Icon.svg.png\" width=\"300px\" height=\"300px\" >";
-    }
-    </script>
  
     <h1>Indoor Air Quality Detection For Smoke Alarm System </h1>
  
@@ -93,8 +82,27 @@ div.panel {
 <button class="accordion">Particle Concentration</button>
 <div class="panel">
     <p>This is the particle level in your restaurant!</p>
+    <p id="demo"></p>
+<script>   
+function generater(){
+    var r;
+    r=Math.random();
+    var x=document.getElementById("demo");
+if (r>0.5){
+    x.innerHTML="<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Green_Light_Icon.svg/1200px-Green_Light_Icon.svg.png\" width=\"100px\" height=\"100px\" >";}
+else{
+    x.innerHTML="<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Red_Light_Icon.svg/1024px-Red_Light_Icon.svg.png\" width=\"100px\" height=\"100px\" >";
+}
+}
+</script>
+<script>
+    setInterval("generater()", 3000 );
+    generater()
+
+
+</script>
 </div>
-  
+
 
 <script>
     var acc = document.getElementsByClassName("accordion");
@@ -121,17 +129,6 @@ div.panel {
 <li>Operators of those public places get the data from our web page</li>
 </ul>
 -->
-
-
-
-<!--
-<audio controls="controls" autoplay="autoplay">
-    <source src="song.ogg" type="audio/ogg" />
-    <source src="song.mp3" type="audio/mpeg" />
-  Your browser does not support the audio element.
-  </audio>
-
-  -->
 
 
 </body>
