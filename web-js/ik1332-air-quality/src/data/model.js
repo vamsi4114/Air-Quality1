@@ -22,14 +22,15 @@ class Model extends ObservableModel{
 			.catch(e => console.log(e));
 
 	}
-	getDataPair(pType){
+	getEntryValue(pType){
 		let data = [];
-		//let i = 0;
-		modelInstance.getAllEntries()
-			.then(response => {
-				console.log(response.pType +"/n");
-				//data = data + [{response.pType, response.Sec}];
+		this.allEntries
+			.on("value", snapshot => {
+				snapshot.forEach(snap => {
+					data.push(snap.val()[pType]);
+				});
 			});
+
 		return data;
 
 	}
