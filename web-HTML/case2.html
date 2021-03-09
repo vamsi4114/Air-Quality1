@@ -4,9 +4,27 @@
 <meta charset="utf-8">
 <title>Use case2</title>
 </head>
+<style>
+    body{
+        background-image: url("smoke-feat.jpg");
+        background-size: cover;
+    }
+    h1{
+        text-align:center;
+        color:#d4d3d3;
+    }
+</style>
 <body>
+
+    <!DOCTYPE html>
+    <html>
+    <head> 
+    <meta charset="utf-8"> 
+    <title>qir quality</title> 
+    </head>
+    <body>
  
-    <h1 style="text-align:center;" >Indoor Air Quality Detection For Smoke Alarm System </h1>
+    <h1>Indoor Air Quality Detection For Smoke Alarm System </h1>
  
 <button class="accordion">About</button>
 <div class="panel">
@@ -22,8 +40,9 @@
 </div>
 <style>
 button.accordion {
-    background-color: #eee;
-    color: #444;
+    background-color: rgb(145, 142, 142);
+    background: linear-gradient(to right,rgba(243, 235, 235, 0.048),rgba(90, 87, 87, 0.274));
+    color: rgb(182, 178, 178);
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -35,12 +54,15 @@ button.accordion {
 }
 
 button.accordion.active, button.accordion:hover {
-    background-color: #ddd;
+    
+    background: linear-gradient(to left,rgba(243,235,0,0),rgba(122, 122, 118, 0.685));
 }
 
 div.panel {
     padding: 0 18px;
-    background-color: white;
+    background: linear-gradient(to right,rgba(243,235,0,0),rgba(243,235,0,0));
+    background-color: rgb(53, 51, 51);
+    color:rgb(255, 255, 255);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
@@ -60,8 +82,27 @@ div.panel {
 <button class="accordion">Particle Concentration</button>
 <div class="panel">
     <p>This is the particle level in your restaurant!</p>
+    <p id="demo"></p>
+<script>   
+function generater(){
+    var r;
+    r=Math.random();
+    var x=document.getElementById("demo");
+if (r>0.5){
+    x.innerHTML="<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Green_Light_Icon.svg/1200px-Green_Light_Icon.svg.png\" width=\"100px\" height=\"100px\" >";}
+else{
+    x.innerHTML="<img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Red_Light_Icon.svg/1024px-Red_Light_Icon.svg.png\" width=\"100px\" height=\"100px\" >";
+}
+}
+</script>
+<script>
+    setInterval("generater()", 3000 );
+    generater()
+
+
+</script>
 </div>
-  
+
 
 <script>
     var acc = document.getElementsByClassName("accordion");
@@ -88,28 +129,6 @@ div.panel {
 <li>Operators of those public places get the data from our web page</li>
 </ul>
 -->
-<script>
-    var DB03level,DB05level,DB10level;
-    var threshold03,threshold05,threshold10;
-    threshold03 = 300;
-    threshold05 = 400;
-    threshold10 = 500;
-
-    if ((DB03level > threshold03)&&(DB05level>threshold05))
-    {
-        alert("Please check the smoke from your restaurant！");
-    }
-</script>
-
-
-<!--
-<audio controls="controls" autoplay="autoplay">
-    <source src="song.ogg" type="audio/ogg" />
-    <source src="song.mp3" type="audio/mpeg" />
-  Your browser does not support the audio element.
-  </audio>
-
-  -->
 
 
 </body>

@@ -83,9 +83,14 @@ div.panel {
  {% endfor %}
 </table>
 </div>
-  
 
-<script>
+    {% if rows[-1]['PM0_3'] < 2000 %}
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Green_Light_Icon.svg/1200px-Green_Light_Icon.svg.png" width="300px" height="300px" >
+    {% endif %}
+    {% if rows[-1]['PM0_3'] > 2000 %}
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Red_Light_Icon.svg/1024px-Red_Light_Icon.svg.png" width="300px" height="300px" >
+    {% endif %}
+    <script>
     var acc = document.getElementsByClassName("accordion");
     var i;
 
@@ -110,19 +115,6 @@ div.panel {
 <li>Operators of those public places get the data from our web page</li>
 </ul>
 -->
-<script>
-    var DB03level,DB05level,DB10level;
-    var threshold03,threshold05,threshold10;
-    threshold03 = 300;
-    threshold05 = 400;
-    threshold10 = 500;
-
-    if ((DB03level > threshold03)&&(DB05level>threshold05))
-    {
-        alert("Please check the smoke from your restaurant！");
-    }
-</script>
-
 
 
 <!-- 这是一个注释 -->
