@@ -41,6 +41,26 @@ class Model extends ObservableModel{
 
 		return entry;
 	}
+	getUpdatesFor(pType){
+		let entry = null;
+		this.allEntries
+			.on("value", snapshot => {
+				snapshot.forEach(snap => {
+					if(entry == null){
+						entry = snap.val();
+						this.notifyObservers({ type: "new-val", value: entry[pType] });
+					}
+					else{
+						if(entry.Sec < snap.val().Sec){
+							console.log("entry not null " + snap.val());
+							entry = snap.val();
+							this.notifyObservers({ type: "new-val", value: entry[pType] });
+						}
+						else{}
+					}
+				});
+			});
+	}
 	getEntryValue(pType){
 		let data = [];
 		this.allEntries
@@ -53,7 +73,7 @@ class Model extends ObservableModel{
 		return data;
 
 	}
-	getWeatherDataForCity(city){
+/*	getWeatherDataForCity(city){
 		fetch("https://community-open-weather-map.p.rapidapi.com/weather?q=London%2Cuk&lat=0&lon=0&callback=test&id=2172797&lang=null&units=%22metric%22%20or%20%22imperial%22&mode=xml%2C%20html", {
 			"method": "GET",
 			"headers": {
@@ -68,7 +88,7 @@ class Model extends ObservableModel{
 			console.error(err);
 		});
 	}
-
+*/
 }
 
 const modelInstance = new Model();
