@@ -1,0 +1,10 @@
+.graphData{
+    display: inline-flex;
+    flex-alignment: row;
+}
+.graph{
+    margin: 20px;
+}
+#Case1{
+    margin: 20px;
+}
