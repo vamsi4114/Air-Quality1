@@ -42,14 +42,14 @@
 #ifdef PMS5003_CONF_SAMPLE_PERIOD
 #define PMS_SAMPLE_PERIOD       PMS5003_CONF_SAMPLE_PERIOD
 #else
-#define PMS_SAMPLE_PERIOD       60
+#define PMS_SAMPLE_PERIOD       10
 #endif /* PMS5003_CONF_SAMPLE_PERIOD */
 
 /* Default warmup time before sensor data can be read (sec) */
 #ifdef PMS5003_CONF_WARMUP_INTERVAL
 #define PMS_WARMUP_INTERVAL    PMS5003_CONF_WARMUP_INTERVAL
 #else
-#define PMS_WARMUP_INTERVAL    30
+#define PMS_WARMUP_INTERVAL    5
 #endif /* PMS5003_WARMUP_INTERVAL */
 
 #ifdef PMS5003_CONF_I2C_ADDR
