@@ -8,11 +8,7 @@ class Model extends ObservableModel{
 	constructor() {
 		super();
 		this.db = firebaseApp.database();
-		//this.db = firebase.database();
 		this.allEntries = this.db.ref("Air quality");
-	}
-	secToHours(sec){
-		return sec/60;
 	}
 	getAllEntries(){
 		console.log("get all entries");
@@ -25,20 +21,13 @@ class Model extends ObservableModel{
 	getLatestEntry(){
 		let entry = null;
 		this.allEntries
+			.orderByKey()
+			.limitToLast(1)
 			.on("value", snapshot => {
 				snapshot.forEach(snap => {
-					if(entry == null){
-						entry = snap.val();
-					}
-					else{
-						if(entry.Sec < snap.val().Sec){
-							entry = snap.val();
-						}
-						else{}
-					}
+					entry = snap.val();
 				});
 			});
-
 		return entry;
 	}
 	getUpdatesFor(pType){
@@ -76,10 +65,10 @@ class Model extends ObservableModel{
 		else if((pType === 2.5 && (30 < pVal) && (pVal <= 55)) || (pType === 10 && (50 < pVal) && (pVal <= 90))){
 			resp = ({risk: "medium", color: "#eec20b"});
 		}
-		else if(pType === 2.5 && (55 < pVal) && (pVal <= 110) || pType === 10 && (90 < pVal) && (pVal <= 180)){
+		else if((pType === 2.5 && (55 < pVal) && (pVal <= 110)) || (pType === 10 && (90 < pVal) && (pVal <= 180))){
 			resp = ({risk: "high", color: "#f29305"});
 		}
-		else if(pType === 2.5 && (110 < pVal) || pType === 10 && (180 < pVal)){
+		else if((pType === 2.5 && (110 < pVal)) || (pType === 10 && (180 < pVal))){
 			resp = ({risk: "very high", color: "#e8416f"});
 		}
 		else{
@@ -87,25 +76,7 @@ class Model extends ObservableModel{
 			resp = "error";
 		}
 		return resp;
-
-
 	}
-/*	getWeatherDataForCity(city){
-		fetch("https://community-open-weather-map.p.rapidapi.com/weather?q=London%2Cuk&lat=0&lon=0&callback=test&id=2172797&lang=null&units=%22metric%22%20or%20%22imperial%22&mode=xml%2C%20html", {
-			"method": "GET",
-			"headers": {
-				"x-rapidapi-key": WEATHER_API_KEY,
-				"x-rapidapi-host": "community-open-weather-map.p.rapidapi.com"
-			}
-		})
-		.then(response => {
-			console.log(response.json);
-		})
-		.catch(err => {
-			console.error(err);
-		});
-	}
-*/
 }
 
 const modelInstance = new Model();
