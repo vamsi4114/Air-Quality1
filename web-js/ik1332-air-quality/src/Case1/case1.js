@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import modelInstance from "../data/model";
 import { Chart, Line } from "react-chartjs-2";
 import "./case1.css";
+import Forecast from "./Forecast";
 
 Chart.defaults.global.legend.display = false;
 
 function GraphData(props) {
-	//console.log(props.labels);
-	//console.log(props.data);
+	let labels = ["1","2","3","4","5","6","7","8","9","10","11","12"];
 	let resp = modelInstance.checkCAQI(props.type, props.currentVal);
 	let chartData = {
-	  labels: props.labels,
+	  labels: labels,
 	  datasets: [
 	    {
 	      data: props.data,
@@ -18,10 +18,27 @@ function GraphData(props) {
 	    }
 	  ]
 	};
+	let chartOpt = {
+		scales: {
+			yAxes: [{
+				scaleLabel: {
+					display: true,
+					labelString: "PM" + props.type + " ug/m3"
+				}
+			}],
+			xAxes: [{
+				scaleLabel: {
+					display: true,
+					labelString: "over time"
+				}
+			}]
+		}
+	}
+
 	return  <div className="graph">
 				<h3>PM<sub>{props.type}</sub> : <b className="pmCurrentVal" style={{backgroundColor: resp.color}}>   {props.currentVal}   </b></h3>
 				<p>Current levels are {resp.risk}</p>
-				<Line data={chartData}/>
+				<Line data={chartData} options={chartOpt}/>
 			</div>;
 }
 class Case1 extends Component {
@@ -30,19 +47,24 @@ class Case1 extends Component {
     this.state = {
 		status: "LOADING",
 		entries: null,
-		data: null,
-		weather: null
+		dataPM25: null,
+		dataPM10: null
     }
   }
   componentDidMount(){
 	  modelInstance.addObserver(this);
-	  let data = modelInstance.getLatestValues(12, "PM0_3");
+	  let dataPM25 = modelInstance.getLatestValues(12, "PM2_5");
+	  let dataPM10 = modelInstance.getLatestValues(12, "PM10");
+
+
 	  modelInstance.getAllEntries()
 	  	.then((response) => {
 			this.setState({
 				status: "LOADED",
 				entries: response,
-				data: data
+				dataPM25: dataPM25,
+				dataPM10: dataPM10,
+				showComponent: false
 			});
 		})
 		.catch(() => {
@@ -50,30 +72,32 @@ class Case1 extends Component {
 				status: "ERROR"
 			});
 		});
-		//modelInstance.getWeatherDataForCity("Stockholm");
 	}
 	componentWillUnmount(){
 		modelInstance.removeObserver(this);
 	}
+    update(model, changeDetails) {
+		if (changeDetails.type === "get-forecast") {
+			this.setState({
+				showComponent: true
+			});
+		}
+    }
 	render() {
 		let response = null;
-		let labels = ["1","2","3","4","5","6","7","8","9","10","11","12"];
 		let currentValues = modelInstance.getLatestEntry();
-		let currentWeather = null;
 		switch (this.state.status){
 			case "LOADING":
 				response = <p>loading</p>;
 				break;
 			case "LOADED":
-				console.log(this.state.data);
 				response =
 				<div>
 					<div className="graphData">
-						<GraphData labels={labels} type={2.5} currentVal={currentValues.PM2_5} data={modelInstance.getLatestValues(12, "PM2_5")}/>
-						<GraphData labels={labels} type={10} currentVal={currentValues.PM10} data={modelInstance.getLatestValues(12, "PM10")}/>
+						<GraphData type={2.5} currentVal={currentValues.PM2_5} data={this.state.dataPM25}/>
+						<GraphData type={10} currentVal={currentValues.PM10} data={this.state.dataPM10}/>
 					</div>
 				</div>;
-				currentWeather = this.state.weather;
 
 			 	break;
 			 case "ERROR":
@@ -86,15 +110,13 @@ class Case1 extends Component {
 
 		return (
 			<div id="Case1">
-				<h3>Outdoor activity planner</h3>
-				<p>An air quality index (AQI) is used to communicate how polluted the air currently is
-				or how polluted it is forecast to become. Public health risks increase as the AQI rises.
-				The lower the particle concentration the safer it is, medium concentration might be hazardous to sensitiv groups and high concentrations
-				may cause significant harm to a person's health</p>
-				<p>Following are measurments of PM<sub>2.5</sub> and PM<sub>10</sub> with color coding based on the Common Air Quality Index (CAQI)</p>
-				{response}
-
-
+				<h1>Outdoor activity planner</h1>
+				<Forecast/>
+				<div style={this.state.showComponent ? {} : { display: 'none' }}>
+					<h3>Air Quality</h3>
+					<p>Following are measurments of the concentration of PM<sub>2.5</sub> and PM<sub>10</sub> in &#181;g/m<sup>3</sup> over time, with color coding based on the Common Air Quality Index (CAQI)</p>
+					{response}
+				</div>
 			</div>
 		);
 	}
