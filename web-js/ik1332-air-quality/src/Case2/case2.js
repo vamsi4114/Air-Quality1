@@ -22,7 +22,7 @@ class Case2 extends Component {
   }
   componentDidMount(){
 	  modelInstance.addObserver(this);
-	  modelInstance.getUpdatesFor("PM2_5");
+	  modelInstance.getUpdatesFor("PM0_3");
   }
   componentWillUnmount() {
   modelInstance.removeObserver(this);
@@ -41,13 +41,22 @@ class Case2 extends Component {
 
 	render() {
 		let response = null;
+		let greenBtn = <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Green_Light_Icon.svg/1200px-Green_Light_Icon.svg.png" width="100px" height="100px" />;
+		let redBtn = <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Red_Light_Icon.svg/1024px-Red_Light_Icon.svg.png" width="100px" height="100px" />
+		let lightBtn = null;
 		switch (this.state.status){
 			case("LOADING"):
 				response = <p>waiting for data</p>;
 				break;
 
 			case("UPDATED"):
-				response = <p>{this.state.currentVal}</p>;
+				response = <p>The current level of PM<sub>0.3</sub> is {this.state.currentVal}</p>;
+				if(this.state.currentVal<1000){
+					lightBtn = greenBtn;
+				}
+				else{
+					lightBtn = redBtn;
+				}
 				break;
 
 			default :
@@ -57,7 +66,6 @@ class Case2 extends Component {
 		return(
 			<div className="Case2">
 				<h3>Indoor Air Quality Detection For Smoke Alarm System</h3>
-				{response}
 				 <Accordion allowMultipleExpanded allowZeroExpanded>
 					<AccordionItem>
 						<AccordionItemHeading>
@@ -65,7 +73,7 @@ class Case2 extends Component {
 								About
 							</AccordionItemButton>
 						</AccordionItemHeading>
-						<AccordionItemPanel>
+						<AccordionItemPanel className="accordionPanel">
 							<p>
 							   <b>Welcome to air quality group!</b>
 							   <br/>
@@ -85,7 +93,7 @@ class Case2 extends Component {
 								Instruction
 							</AccordionItemButton>
 						</AccordionItemHeading>
-						<AccordionItemPanel>
+						<AccordionItemPanel className="accordionPanel">
 							    <p>
 									<ul>
 										<li>Use sensor nodes for smoke alarm</li>
@@ -103,8 +111,10 @@ class Case2 extends Component {
 								Particle Concentration
 							</AccordionItemButton>
 						</AccordionItemHeading>
-						<AccordionItemPanel>
+						<AccordionItemPanel className="accordionPanel">
 							    <p>This is the particle level in your restaurant!</p>
+							    {response}
+							    {lightBtn}
 						</AccordionItemPanel>
             		</AccordionItem>
             	</Accordion>

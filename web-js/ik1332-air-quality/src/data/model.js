@@ -46,31 +46,48 @@ class Model extends ObservableModel{
 		this.allEntries
 			.on("value", snapshot => {
 				snapshot.forEach(snap => {
-					if(entry == null){
-						entry = snap.val();
-						this.notifyObservers({ type: "new-val", value: entry[pType] });
-					}
-					else{
-						if(entry.Sec < snap.val().Sec){
-							console.log("entry not null " + snap.val());
-							entry = snap.val();
-							this.notifyObservers({ type: "new-val", value: entry[pType] });
-						}
-						else{}
-					}
+					entry = snap.val();
+					this.notifyObservers({ type: "new-val", value: entry[pType], ptype: pType });
 				});
 			});
 	}
-	getEntryValue(pType){
+	getLatestValues(numOfVal, pType){
 		let data = [];
 		this.allEntries
+			.orderByKey()
+			.limitToLast(numOfVal)
 			.on("value", snapshot => {
 				snapshot.forEach(snap => {
 					data.push(snap.val()[pType]);
 				});
 			});
-
+		console.log(data);
 		return data;
+
+	}
+	checkCAQI(pType, pVal){
+		let resp = null;
+		if((pType === 2.5 && pVal <= 15) || (pType === 10 && pVal <= 25)){
+			resp = ({risk: "very low", color: "#79bc6a"});
+		}
+		else if((pType === 2.5 && (15 < pVal) && (pVal <= 30)) || (pType === 10 && (25 < pVal) && (pVal <= 50))){
+			resp = ({risk: "low", color: "#bbcf4c"});
+		}
+		else if((pType === 2.5 && (30 < pVal) && (pVal <= 55)) || (pType === 10 && (50 < pVal) && (pVal <= 90))){
+			resp = ({risk: "medium", color: "#eec20b"});
+		}
+		else if(pType === 2.5 && (55 < pVal) && (pVal <= 110) || pType === 10 && (90 < pVal) && (pVal <= 180)){
+			resp = ({risk: "high", color: "#f29305"});
+		}
+		else if(pType === 2.5 && (110 < pVal) || pType === 10 && (180 < pVal)){
+			resp = ({risk: "very high", color: "#e8416f"});
+		}
+		else{
+			console.log(pType, pVal);
+			resp = "error";
+		}
+		return resp;
+
 
 	}
 /*	getWeatherDataForCity(city){
