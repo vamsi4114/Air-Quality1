@@ -55,8 +55,6 @@ class Case1 extends Component {
 	  modelInstance.addObserver(this);
 	  let dataPM25 = modelInstance.getLatestValues(12, "PM2_5");
 	  let dataPM10 = modelInstance.getLatestValues(12, "PM10");
-
-
 	  modelInstance.getAllEntries()
 	  	.then((response) => {
 			this.setState({
