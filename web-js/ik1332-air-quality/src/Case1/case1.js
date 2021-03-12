@@ -56,15 +56,13 @@ class Case1 extends Component {
 	  let dataPM25 = modelInstance.getLatestValues(12, "PM2_5");
 	  let dataPM10 = modelInstance.getLatestValues(12, "PM10");
 
-
 	  modelInstance.getAllEntries()
 	  	.then((response) => {
 			this.setState({
 				status: "LOADED",
 				entries: response,
 				dataPM25: dataPM25,
-				dataPM10: dataPM10,
-				showComponent: false
+				dataPM10: dataPM10
 			});
 		})
 		.catch(() => {
@@ -76,13 +74,19 @@ class Case1 extends Component {
 	componentWillUnmount(){
 		modelInstance.removeObserver(this);
 	}
+	/*
     update(model, changeDetails) {
-		if (changeDetails.type === "get-forecast") {
-			this.setState({
-				showComponent: true
-			});
+		if (changeDetails.type === "new-val") {
+			if(changeDetails.value !== this.state.currentVal){
+
+				this.setState({
+					status: "UPDATED",
+					currentVal: changeDetails.value
+				});
+			}
 		}
     }
+    */
 	render() {
 		let response = null;
 		let currentValues = modelInstance.getLatestEntry();
@@ -112,7 +116,7 @@ class Case1 extends Component {
 			<div id="Case1">
 				<h1>Outdoor activity planner</h1>
 				<Forecast/>
-				<div style={this.state.showComponent ? {} : { display: 'none' }}>
+				<div>
 					<h3>Air Quality</h3>
 					<p>Following are measurments of the concentration of PM<sub>2.5</sub> and PM<sub>10</sub> in &#181;g/m<sup>3</sup> over time, with color coding based on the Common Air Quality Index (CAQI)</p>
 					{response}
