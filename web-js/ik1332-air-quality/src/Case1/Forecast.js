@@ -11,7 +11,8 @@ const Forecast = () => {
 
 	function getForecast(e) {
 		e.preventDefault();
-		modelInstance.notifyObservers({ type: "get-forecast" });
+		console.log("get forecast");
+		//modelInstance.notifyObservers({ type: "get-forecast" });
 		let url = "https://community-open-weather-map.p.rapidapi.com/weather?units=metric&q=" + city;
 		fetch(url, {
 			"method": "GET",
