@@ -44,7 +44,7 @@ mqttsn_state_t mqttsn_publisher_state(void);
 #endif  /* MQTTSN_BUFFER_SIZE */
 
 #ifndef MQTTSN_PUBLISH_INTERVAL
-#define MQTTSN_PUBLISH_INTERVAL 30
+#define MQTTSN_PUBLISH_INTERVAL 2
 #endif /* MQTTSN_PUBLISH_INTERVAL */
 
 void mqttsn_publisher_init(void);

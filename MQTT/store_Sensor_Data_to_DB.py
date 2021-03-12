@@ -8,8 +8,7 @@ from firebase import firebase
 
 class DatabaseManager():
     def __init__(self):
-        self.firebase = firebase.FirebaseApplication('https://ik1332-air-quality-default-rtdb.europe-west1'
-                                                     '.firebasedatabase.app/')
+        self.firebase = firebase.FirebaseApplication('address of firebase')
 
     def add_update_db_record(self, data):
         self.firebase.post('Air quality', data)
